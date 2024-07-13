@@ -1,0 +1,53 @@
+{
+  "name": "svg.patheditor.js",
+  "version": "1.0.0",
+  "description": "An extension for svg.js which allows editing path with the mouse",
+  "type": "module",
+  "keywords": [
+    "svg.js",
+    "path",
+    "select",
+    "mouse"
+  ],
+  "bugs": "https://github.com/puisdirk/svg.patheditor.js/issues",
+  "license": "MIT",
+  "author": "Dirk Puis",
+  "homepage": "https://github.com/puisdirk/svg.patheditor.js",
+  "main": "dist/svg.patheditor.umd.js",
+  "unpkg": "dist/svg.patheditor.iife.js",
+  "jsdelivr": "dist/svg.patheditor.iife.js",
+  "browser": "src/svg.patheditor.js",
+  "module": "src/svg.patheditor.js",
+  "typings": "./svg.patheditor.js.d.ts",
+  "files": [
+    "/dist",
+    "/src",
+    "/svg.patheditor.js.d.ts"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && prettier --write . && eslint ./src && vite build",
+    "zip": "zip -j dist/svg.patheditor.js.zip -- LICENSE README.md dist/svg.patheditor.css  dist/svg.patheditor.iife.js  dist/svg.patheditor.iife.js.map  dist/svg.patheditor.js  dist/svg.patheditor.js.map  dist/svg.patheditor.umd.cjs  dist/svg.patheditor.umd.cjs.map",
+    "prepublishOnly": "rm -rf ./dist && npm run build",
+    "postpublish": "npm run zip"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/puisdirk/svg.patheditor.js.git"
+  },
+  "engines": {
+    "node": ">= 14.18"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.7",
+    "eslint-plugin-import-x": "^0.5.2",
+    "prettier": "^3.3.2",
+    "terser": "^5.31.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "eslint": "^9.6.0"
+  },
+  "peerDependencies": {
+    "@svgdotjs/svg.js": "^3.2.4"
+  }
+}
