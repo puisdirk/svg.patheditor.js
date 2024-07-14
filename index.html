@@ -16,6 +16,42 @@
     <script type="module">
       import { SVG } from '@svgdotjs/svg.js'
       const canvas = new SVG().size(2000, 1000).addTo('body')
+/*
+      let docsG1 = canvas.group()
+      docsG1.path('M10 50 C50 100 100 10 100 50').move(250, 260).stroke({color: '#666', width: 2}).fill('none').showControls();
+
+      let textattr = { 
+        'font-family': 'sans-serif',
+        'font-size': '12px',
+        fill: 'grey'
+      }
+
+      docsG1.text('svg_pathselect_control_stalk').attr(textattr).move(110,300)
+      docsG1.text('svg_pathselect_control_handle').attr(textattr).move(165,225)
+      docsG1.text('svg_pathselect_control_point').attr(textattr).move(85,265)
+
+      docsG1.move(100, 10)
+
+      let docsG2 = canvas.group()
+      docsG2.path('M10 50 C50 100 100 10 100 50').move(250, 260).stroke({color: '#666', width: 2}).fill('none').showControls();
+
+      docsG2.text('seg-1-type-x1y1_control_point').attr(textattr).move(295,315)
+      docsG2.text('seg-1-type-x2y2_control_point').attr(textattr).move(170,225)
+      docsG2.text('seg-0-type-xy_control_point').attr(textattr).move(95,265)
+      docsG2.text('seg-1-type-xy_control_point').attr(textattr).move(345,265)
+
+      docsG2.move(100,200)
+
+      let docsG3 = canvas.group()
+      docsG3.path('M10 50 C50 100 100 10 100 50').move(250, 260).stroke({color: '#666', width: 2}).fill('none').showControls();
+
+      docsG3.text('x1y1_control_point').attr(textattr).move(295,315)
+      docsG3.text('x2y2_control_point').attr(textattr).move(230,225)
+      docsG3.text('xy_control_point').attr(textattr).move(155,265)
+      docsG3.text('xy_control_point').attr(textattr).move(345,265)
+
+      docsG3.move(100,390)
+*/
 
       let paths = [];
 
@@ -104,6 +140,7 @@
       g.move(900, 450);
 
       manipulate()
+
     </script>
   </body>
 </html>
