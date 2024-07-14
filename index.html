@@ -16,131 +16,154 @@
     <script type="module">
       import { SVG } from '@svgdotjs/svg.js'
       const canvas = new SVG().size(2000, 1000).addTo('body')
-/*
-      let docsG1 = canvas.group()
-      docsG1.path('M10 50 C50 100 100 10 100 50').move(250, 260).stroke({color: '#666', width: 2}).fill('none').showControls();
 
-      let textattr = { 
-        'font-family': 'sans-serif',
-        'font-size': '12px',
-        fill: 'grey'
+      let showDocPicturesContent = false;
+
+      if (showDocPicturesContent === true) {
+        let docsG1 = canvas.group()
+        docsG1.path('M10 50 C50 100 100 10 100 50').move(250, 260).stroke({color: '#666', width: 2}).fill('none').showControls();
+
+        let textattr = { 
+          'font-family': 'sans-serif',
+          'font-size': '12px',
+          fill: 'grey'
+        }
+
+        docsG1.text('svg_pathselect_control_stalk').attr(textattr).move(110,300)
+        docsG1.text('svg_pathselect_control_handle').attr(textattr).move(165,225)
+        docsG1.text('svg_pathselect_control_point').attr(textattr).move(85,265)
+
+        docsG1.move(100, 10)
+
+        let docsG2 = canvas.group()
+        docsG2.path('M10 50 C50 100 100 10 100 50').move(250, 260).stroke({color: '#666', width: 2}).fill('none').showControls();
+
+        docsG2.text('seg-1-type-x1y1_control_point').attr(textattr).move(295,315)
+        docsG2.text('seg-1-type-x2y2_control_point').attr(textattr).move(170,225)
+        docsG2.text('seg-0-type-xy_control_point').attr(textattr).move(95,265)
+        docsG2.text('seg-1-type-xy_control_point').attr(textattr).move(345,265)
+
+        docsG2.move(100,200)
+
+        let docsG3 = canvas.group()
+        docsG3.path('M10 50 C50 100 100 10 100 50').move(250, 260).stroke({color: '#666', width: 2}).fill('none').showControls();
+
+        docsG3.text('x1y1_control_point').attr(textattr).move(295,315)
+        docsG3.text('x2y2_control_point').attr(textattr).move(230,225)
+        docsG3.text('xy_control_point').attr(textattr).move(155,265)
+        docsG3.text('xy_control_point').attr(textattr).move(345,265)
+
+        docsG3.move(100,390)
+
+        let docsG4 = canvas.group()
+        docsG4.path('M10 180 A 80 50 30 1 0 140 180').move(250, 260).stroke({color: '#666', width: 2}).fill('none').showControls();
+
+        docsG4.text(function(add) {
+          add.newLine('svg_pathselect_control_handle')
+          add.newLine('arc_rotation_control_point')
+        }).attr(textattr).move(295,250)
+        docsG4.text(function(add) {
+          add.newLine('svg_pathselect_control_handle')
+          add.newLine('arc_rx_control_point')
+        }).attr(textattr).move(80,265)
+        docsG4.text(function(add) {
+          add.newLine('svg_pathselect_control_handle')
+          add.newLine('arc_ry_control_point')
+        }).attr(textattr).move(200,180)
+
+        docsG4.move(100,600)
+      
+      } else {
+
+        let paths = [];
+
+        window.deactivate = () => {
+          paths.forEach(path => path.showControls(false))
+          document.getElementById('currentmode').innerText = 'inactive'
+        }
+
+        window.activate = () => {
+          paths.forEach(path => path.manipulate(false))
+          paths.forEach(path => path.showControls(false))
+          paths.forEach(path => path.showControls())
+          document.getElementById('currentmode').innerText = 'active'
+        }
+
+        window.manipulate = () => {
+          paths.forEach(path => path.manipulate(false))
+          paths.forEach(path => path.showControls(false))
+          paths.forEach(path => path.showControls().manipulate())
+          document.getElementById('currentmode').innerText = 'manipulating'
+        }
+
+        let pathsStroke = {color: '#666', width: 2};
+
+        let g = canvas.group();
+
+        g.text('curve (C)').move(40, 5)
+        paths.push(g.path('M10 50 C50 100 100 10 100 50').move(20, 40).stroke(pathsStroke).fill('none'));
+
+        g.text('relative curve (c)').move(40, 150);
+        paths.push(g.path('M10 50 c50 100 100 10 100 50').move(20, 200).stroke(pathsStroke).fill('none'));
+
+        g.move(20, 50)
+
+        g = canvas.group();
+
+        g.text('curve (C), then smooth curve (S)');
+        paths.push(g.path('M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80').move(0, 60).stroke(pathsStroke).fill('none'));
+
+        g.text('curve (C), then 2 smooth curves (S)').move(0, 200);
+        paths.push(g.path('M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80 S240 10 280 80').move(0, 260).stroke(pathsStroke).fill('none'));
+
+        g.text('smooth curve (S) on its own').move(0, 420)
+        paths.push(g.path('M10 80 S 150 150, 180 80').move(0, 460).stroke(pathsStroke).fill('none'));
+
+        g.text('relative curve (c), then').move(0, 570);
+        g.text('relative smooth curve (s)').move(0, 590);
+        paths.push(g.path('M10 80 c 40 10, 65 10, 95 80 s 150 150, 180 80').move(0, 620).stroke(pathsStroke).fill('none'));
+
+        g.move(200, 5);
+
+
+        g = canvas.group();
+
+        g.text('quadratic curve (Q)');
+        paths.push(g.path('M10 80 Q 95 10 180 80').move(0, 80).stroke(pathsStroke).fill('none'));
+
+        g.text('quadratic curve (Q), then').move(0, 200);
+        g.text('a smooth quadratic curve (T)').move(0, 220);
+        paths.push(g.path('M10 80 Q 52.5 10, 95 80 T 180 80').move(0, 280).stroke(pathsStroke).fill('none'));
+        g.move(100, 5);
+
+        g.text('smooth quadratic curve (T) on its own').move(0, 420);
+        paths.push(g.path('M10 80 T 180 80').move(0, 460).stroke(pathsStroke).fill('none'));
+
+        g.text('relative quadratic curve (q), then').move(0, 580);
+        g.text('a relative smooth quadratic curve (t)').move(0, 600);
+        paths.push(g.path('M10 80 q 52.5 10, 95 80 t 180 80').move(0, 620).stroke(pathsStroke).fill('none'));
+
+        g.move(500, 5);
+
+        g = canvas.group();
+        g.text('arc (A)').move(150, 0)
+        paths.push(g.path('M10 180 A 80 50 0 1 1 140 180').move(0, 30).stroke(pathsStroke).fill('none'));
+        paths.push(g.path('M10 180 A 80 50 0 0 1 140 180').move(300, 80).stroke(pathsStroke).fill('none'));
+        paths.push(g.path('M10 180 A 80 50 0 1 0 140 180').move(0, 300).stroke(pathsStroke).fill('none'));
+        paths.push(g.path('M10 180 A 80 50 0 0 0 140 180').move(300, 300).stroke(pathsStroke).fill('none'));
+        g.move(900, 0);
+
+        g = canvas.group();
+        g.text('arc (A) with rotation').move(150, -100)
+        paths.push(g.path('M10 180 A 80 50 30 1 1 140 180').move(0, -50).stroke(pathsStroke).fill('none'));
+        paths.push(g.path('M10 180 A 80 50 30 0 1 140 180').move(300, -20).stroke(pathsStroke).fill('none'));
+        paths.push(g.path('M10 180 A 80 50 30 1 0 140 180').move(0, 200).stroke(pathsStroke).fill('none'));
+        paths.push(g.path('M10 180 A 80 50 30 0 0 140 180').move(300, 200).stroke(pathsStroke).fill('none'));
+        g.move(900, 450);
+
+        manipulate()
+
       }
-
-      docsG1.text('svg_pathselect_control_stalk').attr(textattr).move(110,300)
-      docsG1.text('svg_pathselect_control_handle').attr(textattr).move(165,225)
-      docsG1.text('svg_pathselect_control_point').attr(textattr).move(85,265)
-
-      docsG1.move(100, 10)
-
-      let docsG2 = canvas.group()
-      docsG2.path('M10 50 C50 100 100 10 100 50').move(250, 260).stroke({color: '#666', width: 2}).fill('none').showControls();
-
-      docsG2.text('seg-1-type-x1y1_control_point').attr(textattr).move(295,315)
-      docsG2.text('seg-1-type-x2y2_control_point').attr(textattr).move(170,225)
-      docsG2.text('seg-0-type-xy_control_point').attr(textattr).move(95,265)
-      docsG2.text('seg-1-type-xy_control_point').attr(textattr).move(345,265)
-
-      docsG2.move(100,200)
-
-      let docsG3 = canvas.group()
-      docsG3.path('M10 50 C50 100 100 10 100 50').move(250, 260).stroke({color: '#666', width: 2}).fill('none').showControls();
-
-      docsG3.text('x1y1_control_point').attr(textattr).move(295,315)
-      docsG3.text('x2y2_control_point').attr(textattr).move(230,225)
-      docsG3.text('xy_control_point').attr(textattr).move(155,265)
-      docsG3.text('xy_control_point').attr(textattr).move(345,265)
-
-      docsG3.move(100,390)
-*/
-
-      let paths = [];
-
-      window.deactivate = () => {
-        paths.forEach(path => path.showControls(false))
-        document.getElementById('currentmode').innerText = 'inactive'
-      }
-
-      window.activate = () => {
-        paths.forEach(path => path.manipulate(false))
-        paths.forEach(path => path.showControls(false))
-        paths.forEach(path => path.showControls())
-        document.getElementById('currentmode').innerText = 'active'
-      }
-
-      window.manipulate = () => {
-        paths.forEach(path => path.manipulate(false))
-        paths.forEach(path => path.showControls(false))
-        paths.forEach(path => path.showControls().manipulate())
-        document.getElementById('currentmode').innerText = 'manipulating'
-      }
-
-      let pathsStroke = {color: '#666', width: 2};
-
-      let g = canvas.group();
-
-      g.text('curve (C)').move(40, 5)
-      paths.push(g.path('M10 50 C50 100 100 10 100 50').move(20, 40).stroke(pathsStroke).fill('none'));
-
-      g.text('relative curve (c)').move(40, 150);
-      paths.push(g.path('M10 50 c50 100 100 10 100 50').move(20, 200).stroke(pathsStroke).fill('none'));
-
-      g.move(20, 50)
-
-      g = canvas.group();
-
-      g.text('curve (C), then smooth curve (S)');
-      paths.push(g.path('M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80').move(0, 60).stroke(pathsStroke).fill('none'));
-
-      g.text('curve (C), then 2 smooth curves (S)').move(0, 200);
-      paths.push(g.path('M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80 S240 10 280 80').move(0, 260).stroke(pathsStroke).fill('none'));
-
-      g.text('smooth curve (S) on its own').move(0, 420)
-      paths.push(g.path('M10 80 S 150 150, 180 80').move(0, 460).stroke(pathsStroke).fill('none'));
-
-      g.text('relative curve (c), then').move(0, 570);
-      g.text('relative smooth curve (s)').move(0, 590);
-      paths.push(g.path('M10 80 c 40 10, 65 10, 95 80 s 150 150, 180 80').move(0, 620).stroke(pathsStroke).fill('none'));
-
-      g.move(200, 5);
-
-
-      g = canvas.group();
-
-      g.text('quadratic curve (Q)');
-      paths.push(g.path('M10 80 Q 95 10 180 80').move(0, 80).stroke(pathsStroke).fill('none'));
-
-      g.text('quadratic curve (Q), then').move(0, 200);
-      g.text('a smooth quadratic curve (T)').move(0, 220);
-      paths.push(g.path('M10 80 Q 52.5 10, 95 80 T 180 80').move(0, 280).stroke(pathsStroke).fill('none'));
-      g.move(100, 5);
-
-      g.text('smooth quadratic curve (T) on its own').move(0, 420);
-      paths.push(g.path('M10 80 T 180 80').move(0, 460).stroke(pathsStroke).fill('none'));
-
-      g.text('relative quadratic curve (q), then').move(0, 580);
-      g.text('a relative smooth quadratic curve (t)').move(0, 600);
-      paths.push(g.path('M10 80 q 52.5 10, 95 80 t 180 80').move(0, 620).stroke(pathsStroke).fill('none'));
-
-      g.move(500, 5);
-
-      g = canvas.group();
-      g.text('arc (A)').move(150, 0)
-      paths.push(g.path('M10 180 A 80 50 0 1 1 140 180').move(0, 30).stroke(pathsStroke).fill('none'));
-      paths.push(g.path('M10 180 A 80 50 0 0 1 140 180').move(300, 80).stroke(pathsStroke).fill('none'));
-      paths.push(g.path('M10 180 A 80 50 0 1 0 140 180').move(0, 300).stroke(pathsStroke).fill('none'));
-      paths.push(g.path('M10 180 A 80 50 0 0 0 140 180').move(300, 300).stroke(pathsStroke).fill('none'));
-      g.move(900, 0);
-
-      g = canvas.group();
-      g.text('arc (A) with rotation').move(150, -100)
-      paths.push(g.path('M10 180 A 80 50 30 1 1 140 180').move(0, -50).stroke(pathsStroke).fill('none'));
-      paths.push(g.path('M10 180 A 80 50 30 0 1 140 180').move(300, -20).stroke(pathsStroke).fill('none'));
-      paths.push(g.path('M10 180 A 80 50 30 1 0 140 180').move(0, 200).stroke(pathsStroke).fill('none'));
-      paths.push(g.path('M10 180 A 80 50 30 0 0 140 180').move(300, 200).stroke(pathsStroke).fill('none'));
-      g.move(900, 450);
-
-      manipulate()
-
     </script>
   </body>
 </html>

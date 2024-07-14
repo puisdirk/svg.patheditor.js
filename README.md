@@ -21,6 +21,12 @@ An extension for [svg.js](https://github.com/svgdotjs/svg.js) which allows editi
   ```
 <br/>
 
+## Demo
+
+Fork the repo, clone it, run `npm install` and `npm run dev` to try it out.
+
+## Usage
+
 - Use `showControls` on a path to show the control points and handles:
 
   ```ts
@@ -53,8 +59,11 @@ You can override the styles of the control points, control handles and their sta
 
 <center><img src="./base-classes.png?sanitize=true" style="width: 300px;" alt="base classes"/></center>
 
+For Arcs, we have control handles for rx, ry and the arc's rotation
 
-Each control point and handle also gets a `cpid` identifier attribute revealing the segment of the path and the point's purpose. For this, we follow the naming conventions of the SVG specification in [Chapter 9: Paths](https://www.w3.org/TR/SVG/paths.html).
+<center><img src="./arc.png?sanitize=true" style="width: 300px;" alt="base classes"/></center>
+
+Each control point and handle also gets a `cpid` identifier attribute composed of the segment (path command) number and the point's purpose. For this, we follow the naming conventions of the SVG specification in [Chapter 9: Paths](https://www.w3.org/TR/SVG/paths.html).
 
 E.g. the path shown above is an absolute cubic Bézier curve with the following definition:
 
@@ -62,7 +71,7 @@ E.g. the path shown above is an absolute cubic Bézier curve with the following 
 M10 50 C50 100 100 10 100 50
 ```
 
-There are two segments in this path: an absolute `moveto` *M* and an absolute `cubic Bézier curve` *C*.
+There are two segments (path commands) in this path: an absolute `moveto` *M* and an absolute `cubic Bézier curve` *C*.
 
 In the specs, *M* has an x and y argument, and *C* has x1 y1 x2 y2 x and y arguments. This is reflected in the `cpid` attributes places on the controls:
 
@@ -83,8 +92,5 @@ E.g. for the example path, we only have M x y and C x1 y1 x2 y2 x y, but the pat
 We draw this reflected point in gray, but unfortunately, these reflected points are not always drawn in the correct position. To be fixed.
 
 <center><img src="./QT.png?sanitize=true" style="width: 200px;max-width: 200px" alt="additional classes"/></center>
-
-
-<br />
 
 - Currently the only way to affect the manipulation is to pass your own PathManipulation class. We plan to replace this with callbacks so you can e.g. limit movement of the control points and handles to the horizontal or the vertical axis; constraint the manipulations to a grid; etc
