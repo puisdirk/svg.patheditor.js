@@ -1,4 +1,5 @@
 # svg.patheditor.js
+
 An extension for [svg.js](https://github.com/svgdotjs/svg.js) which allows editing paths with the mouse (Inspired by [@svgdotjs/svg.select.js](https://github.com/svgdotjs/svg.select.js) and [@svgdotjs/svg.resize.js](https://github.com/svgdotjs/svg.resize.js)).
 
 <center><img src="./overview.png?sanitize=true" style="width: 900px;" alt="overview"/></center>
@@ -11,7 +12,8 @@ An extension for [svg.js](https://github.com/svgdotjs/svg.js) which allows editi
   ```bash
   npm i @svgdotjs/svg.js svg.patheditor.js
   ```
-<br/>
+
+  <br/>
 
 - Or get it from a cnd:
 
@@ -19,7 +21,8 @@ An extension for [svg.js](https://github.com/svgdotjs/svg.js) which allows editi
   <script src="https://unpkg.com/@svgdotjs/svg.js"></script>
   <script src="https://unpkg.com/svg.patheditor.js"></script>
   ```
-<br/>
+
+  <br/>
 
 ## Demo
 
@@ -30,18 +33,20 @@ Fork the repo, clone it, run `npm install` and `npm run dev` to try it out.
 - Use `showControls` on a path to show the control points and handles:
 
   ```ts
-  var canvas = new SVG().addTo('body').size(500, 500)
+  let canvas = new SVG().addTo('body').size(500, 500)
   let path = canvas.path('M10 50 C50 100 100 10 100 50').showControls()
   ```
-<br/>
+
+  <br/>
 
 - Use `manipulate` to allow dragging around the control points and handles:
 
   ```ts
-  var canvas = new SVG().addTo('body').size(500, 500)
+  let canvas = new SVG().addTo('body').size(500, 500)
   let path = canvas.path('M10 50 C50 100 100 10 100 50').showControls().manipulate()
   ```
-<br/>
+
+  <br/>
 
 - To disable, pass false to either `showControls` or `manipulate`:
 
@@ -49,7 +54,8 @@ Fork the repo, clone it, run `npm install` and `npm run dev` to try it out.
   path.manipulate(false)
   path.showControls(false)
   ```
-<br/>
+
+  <br/>
 
 ## Adaptation
 
@@ -71,9 +77,9 @@ E.g. the path shown above is an absolute cubic Bézier curve with the following 
 M10 50 C50 100 100 10 100 50
 ```
 
-There are two segments (path commands) in this path: an absolute `moveto` *M* and an absolute `cubic Bézier curve` *C*.
+There are two segments (path commands) in this path: an absolute `moveto` _M_ and an absolute `cubic Bézier curve` _C_.
 
-In the specs, *M* has an x and y argument, and *C* has x1 y1 x2 y2 x and y arguments. This is reflected in the `cpid` attributes places on the controls:
+In the specs, _M_ has an x and y argument, and _C_ has x1 y1 x2 y2 x and y arguments. This is reflected in the `cpid` attributes places on the controls:
 
 <center><img src="./cpids.png?sanitize=true" style="width: 400px;max-width: 400px" alt="cpid attributes"/></center>
 
@@ -81,15 +87,11 @@ We add additional classes to reflect the type of control
 
 <center><img src="./additional-classes.png?sanitize=true" style="width: 400px;max-width: 400px" alt="additional classes"/></center>
 
-
 ## Issues and open points
 
-- We currently handle only one set of arguments per segment.
-E.g. for the example path, we only have M x y and C x1 y1 x2 y2 x y, but the path specification allows multiple sets of arguments: M (x y)+ and C (x1 y1 x2 y2 x y)+  
-**Fixing this will affect the format of the `cpid` attribute values**
-<br /><br />
-- Smooth quadratic curves (`T` or `t`) don't have their own control handles as the control point is assumed to be the reflection of the control point on the previous command relative to the current point.<br />
-We draw this reflected point in gray, but unfortunately, these reflected points are not always drawn in the correct position. To be fixed.
+- We currently handle only one set of arguments per segment. E.g. for the example path, we only have M x y and C x1 y1 x2 y2 x y, but the path specification allows multiple sets of arguments: M (x y)+ and C (x1 y1 x2 y2 x y)+  
+  **Fixing this will affect the format of the `cpid` attribute values** <br /><br />
+- Smooth quadratic curves (`T` or `t`) don't have their own control handles as the control point is assumed to be the reflection of the control point on the previous command relative to the current point.<br /> We draw this reflected point in gray, but unfortunately, these reflected points are not always drawn in the correct position. To be fixed.
 
 <center><img src="./QT.png?sanitize=true" style="width: 200px;max-width: 200px" alt="additional classes"/></center>
 
