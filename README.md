@@ -1,6 +1,6 @@
 # svg.patheditor.js
 
-An extension for [svg.js](https://github.com/svgdotjs/svg.js) which allows editing paths with the mouse (Inspired by [@svgdotjs/svg.select.js](https://github.com/svgdotjs/svg.select.js) and [@svgdotjs/svg.resize.js](https://github.com/svgdotjs/svg.resize.js)).
+An extension for [svg.js](https://github.com/svgdotjs/svg.js) that allows editing paths with the mouse (Inspired by [@svgdotjs/svg.select.js](https://github.com/svgdotjs/svg.select.js) and [@svgdotjs/svg.resize.js](https://github.com/svgdotjs/svg.resize.js)).
 
 <center><img src="./overview.png?sanitize=true" style="width: 900px;" alt="overview"/></center>
 <br />
@@ -82,6 +82,8 @@ There are two segments (path commands) in this path: an absolute `moveto` _M_ an
 In the specs, _M_ has an x and y argument, and _C_ has x1 y1 x2 y2 x and y arguments. This is reflected in the `cpid` attributes places on the controls:
 
 <center><img src="./cpids.png?sanitize=true" style="width: 400px;max-width: 400px" alt="cpid attributes"/></center>
+
+The manipulation plugin listens for mouse events on the controls created by the showControls plugin and uses the `cpid` to find out which point in the path is being changed.
 
 We add additional classes to reflect the type of control
 
