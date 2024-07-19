@@ -1,6 +1,6 @@
 {
   "name": "svg.patheditor.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An extension for svg.js which allows editing path with the mouse",
   "type": "module",
   "keywords": [
