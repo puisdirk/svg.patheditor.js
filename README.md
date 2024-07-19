@@ -5,6 +5,9 @@ An extension for [svg.js](https://github.com/svgdotjs/svg.js) that allows editin
 <center><img src="./overview.png?sanitize=true" style="width: 900px;" alt="overview"/></center>
 <br />
 
+<center><img src="./tiger.png?sanitize=true" style="width: 900px;" alt="overview"/></center>
+<br />
+
 ## Getting Started
 
 - Install `svg.js` and `svg.select.js` using npm:
@@ -89,10 +92,13 @@ We add additional classes to reflect the type of control
 
 <center><img src="./additional-classes.png?sanitize=true" style="width: 400px;max-width: 400px" alt="additional classes"/></center>
 
+## Change History
+
+v1.0.1 - Tested paths with multiple coordinate pairs per segment + added tiger sample  
+v1.0.0 - Initial release
+
 ## Issues and open points
 
-- We currently handle only one set of arguments per segment. E.g. for the example path, we only have M x y and C x1 y1 x2 y2 x y, but the path specification allows multiple sets of arguments: M (x y)+ and C (x1 y1 x2 y2 x y)+  
-  **Fixing this will affect the format of the `cpid` attribute values** <br /><br />
 - Smooth quadratic curves (`T` or `t`) don't have their own control handles as the control point is assumed to be the reflection of the control point on the previous command relative to the current point.<br /> We draw this reflected point in gray, but unfortunately, these reflected points are not always drawn in the correct position. To be fixed.
 
 <center><img src="./QT.png?sanitize=true" style="width: 200px;max-width: 200px" alt="additional classes"/></center>
